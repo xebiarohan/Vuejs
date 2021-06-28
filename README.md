@@ -1,7 +1,7 @@
 # Vuejs
 Basic projects to learn Vue.js
 
-#### const app = Vue.createApp({ data() {},computed: {},watch: {} methods: {} });
+#### const app = Vue.createApp({ template:``, data() {},computed: {},watch: {} methods: {}, <Life cycle hooks> });
 	Basic class syntax
 
 #### app.mount('#selectorName')
@@ -74,7 +74,42 @@ Basic projects to learn Vue.js
 	
 #### key
 	is used with v-for for stopping unwanted behaviour
-	syntax  :key="<unique-key"
+	syntax  :key="<unique-key>"
+	
+#### Concept of proxy
+	Vue uses concept of proxy to bind the data properties present in data() {}. It makes the properties reactive.
+	
+#### Multiple Vue app in the same class
+	We can map multiple Vue app to the same HTML, we can create multiple Vue apps in the same class using Vue.createApp({})	and can bind to different HTML section.
+	
+#### Working with Refs
+	Used to get access to any HTML element like input, paragraph, h2 etc
+	<input type="text" ref="<anyName>">
+	<input type="text" ref="userText">	
+	we can then use these value in js or ts class using this.$refs.<anyName> 
+	example: this.$refs.userText.value;
+	
+#### Vue uses the concept of Virtual DOM
+	used to render the part of the DOMs individually, It has a vitual copy of the real DOM in the memory and when the data changes, it creates the
+	new virtual DOM then it compares it with the old virtual DOM and only applies then different of 2 virtual DOMs to the real virtual DOMs.
+	
+#### Vue instance Lifecycle 	
+	beforeCreate()          	Before creating the application
+	created()			After creating the application but nothing is visible on UI but has access to data properties
+		compile template
+	beforeMount() 			Before showing something on UI, starting processing the UI
+	mounted()			When UI is displayed
+		data changes
+	beforeUpdate()			Before updating any property value
+	updated()			After updation
+	
+	beforeUnmount()			Before unmounting the app
+	unmounted()			After unmounting (for clean up code)
+	
+	
+	
+	
+	
 		
 	
 	

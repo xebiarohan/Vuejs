@@ -70,7 +70,7 @@ const app = Vue.createApp({
             this.counter = 0;
             const attachValue = getRandomValue(10, 25);
             this.monsterHealth -= attachValue;
-            this.addLogMessage('monster','attack',attachValue);
+            this.addLogMessage('player','attack',attachValue);
             this.attackPlayer();
         },
         healValue() {
