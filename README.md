@@ -112,6 +112,25 @@ Basic projects to learn Vue.js
 		app.component('<custom-tags>',{data(): {}, methods: {} .... })
 	custom tags like friend-contant
 	
+#### Vue CLI
+	Allow us to create and manage bigger Vue applications	
+	Installation : 	npm install -g @vue/cli
+	creating new project : vue create <project-name>
+	running project:  cd <project-name>  then,    npm run serve
+	
+#### Main.js
+	Vue application starts from main.js and it loads a section (#app) present in index.html
+	
+#### Running .vue class
+	Vue application builds the code present in .vue (Single file components)  files to run it on the browsers.
+	
+		
+		
+	
+	
+	
+	
+	
 	
 	
 		
