@@ -106,7 +106,11 @@ Basic projects to learn Vue.js
 	beforeUnmount()			Before unmounting the app
 	unmounted()			After unmounting (for clean up code)
 	
-	
+#### Components
+	Used to add the reuseability in a Vue application.Vue component is just an another Vue app that is connected to main App.
+	syntax
+		app.component('<custom-tags>',{data(): {}, methods: {} .... })
+	custom tags like friend-contant
 	
 	
 	
