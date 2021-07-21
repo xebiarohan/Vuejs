@@ -1,7 +1,7 @@
 # Vuejs
 Basic projects to learn Vue.js
 
-#### const app = Vue.createApp({ template:``, data() {},computed: {},watch: {} methods: {}, <Life cycle hooks> });
+#### const app = Vue.createApp({ props: {}, emits: {}, template:``, data() {},computed: {},watch: {} methods: {}, <Life cycle hooks> });
 	Basic class syntax
 
 #### app.mount('#selectorName')
@@ -123,6 +123,86 @@ Basic projects to learn Vue.js
 	
 #### Running .vue class
 	Vue application builds the code present in .vue (Single file components)  files to run it on the browsers.
+	
+#### Parent child component communication (props)
+	Props are used to create a communication between parent component and child component.
+	
+	In parent component props are passed like:
+		 <friend-contact name="Manuel Lorenz" phone-number="0123 45678 90" email-address="manuel@localhost.com"></friend-contact>
+		 
+	In child component props are defined in script like
+	
+		export default {
+			  props: [
+			    'name',
+			    'phoneNumber',
+			    'emailAddress'
+			  ],
+			  .......
+		
+		}	
+		
+	These props can be used in the template directly and in methods using 'this' keyword.
+
+	Props value cannot pe directly changed in the child component (immutable values) but we can assign the prop values to local variable and can change that.
+
+#### Validating props
+	Changing prop as an array to an object and then defining all the validations for each prop value.
+	  props: {
+	    name: {
+	      type: String,
+	      required: true
+	    },
+	    phoneNumber: String,
+	    emailAddress: String,
+	    isFavorite: {
+	      type: String,
+	      required: false,
+	      default: '0',
+	      validator: function(value) {
+		return value === '1' || value === '0';
+	      }
+	    }
+	  }
+	  
+#### Passing dara from Child component to Parent component using emit
+
+	We can create a custom event on some action using
+		this.$emit('toggle-favorite', this.id);
+		
+	then in the parent component we can consume this event on the child element
+	
+	<friend-contact
+        v-for="friend in friends"
+        :key="friend.id"
+        :id="friend.id"
+        :name="friend.name"
+        :phone-number="friend.phone"
+        :email-address="friend.email"
+        :is-favorite="friend.isFavorite"
+        @toggle-favorite="toggleFavoriteStatus"
+      ></friend-contact>
+      
+      Here toggleFavoriteStatus is the method that will get executed when an event is emitted from child component. It takes a
+      parameter as emitted by the child component.
+      
+#### Validating emits of a component     
+	Just like props we can define the emits validation
+		  emits: {
+		    'toggle-favorite' : function(id) {
+		      if(id) {
+			return true;
+		      } else {
+			console.warn('Id is missing');
+			return false;
+		      }
+		    }
+		  }
+	
+	If we dont want to add any validation then we can use an array (recommended)
+		emits: ['toggle-favorite']
+	
+	
 	
 		
 		
