@@ -15,6 +15,7 @@
         {{ emailAddress }}
       </li>
     </ul>
+    <button @click="deleteFriend">Delete</button>
   </li>
 </template>
 
@@ -23,29 +24,37 @@ export default {
   props: {
     id: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     phoneNumber: String,
     emailAddress: String,
     isFavorite: {
       type: Boolean,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
   emits: {
-    'toggle-favorite' : function(id) {
-      if(id) {
+    "toggle-favorite": function(id) {
+      if (id) {
         return true;
       } else {
-        console.warn('Id is missing');
+        console.warn("Id is missing");
         return false;
       }
-    }
+    },
+    "delete-friend": function(id) {
+      if (id) {
+        return true;
+      } else {
+        console.warn("Id is missing");
+        return false;
+      }
+    },
   },
   data() {
     return {
@@ -57,7 +66,10 @@ export default {
       this.detailsAreVisible = !this.detailsAreVisible;
     },
     toggleFavorite() {
-      this.$emit('toggle-favorite', this.id);
+      this.$emit("toggle-favorite", this.id);
+    },
+    deleteFriend() {
+      this.$emit("delete-friend", this.id);
     },
   },
 };

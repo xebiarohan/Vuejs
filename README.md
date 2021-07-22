@@ -1,7 +1,7 @@
 # Vuejs
 Basic projects to learn Vue.js
 
-#### const app = Vue.createApp({ props: {}, emits: {}, template:``, data() {},computed: {},watch: {} methods: {}, <Life cycle hooks> });
+#### const app = Vue.createApp({ components: {}, props: {}, emits: {}, template:``, data() {},computed: {},watch: {}, provide: {}, methods: {}, <Life cycle hooks> });
 	Basic class syntax
 
 #### app.mount('#selectorName')
@@ -202,10 +202,115 @@ Basic projects to learn Vue.js
 	If we dont want to add any validation then we can use an array (recommended)
 		emits: ['toggle-favorite']
 	
+#### Provide-inject
+
+	It is used when we want to pass the data to the grand child component, We can use emit as well but we need to do the same work in parent and grand parent component.
+	So, We can use this approach where we can provide the data in the grand parent component and can inject in the grand child component.
 	
+	In grand parent component :
 	
+		provide: {
+		    topics: [
+			{
+			  id: 'basics',
+			  title: 'The Basics',
+			  description: 'Core Vue basics you have to know',
+			  fullText:
+			    'Vue is a great framework and it has a couple of key concepts: Data binding, events, components and reactivity - that should tell you something!',
+			}
+		      ],
+		  }
+	
+	In grand child component
+		
+		inject: ['topics']
+		
+	Inject only works when we provide data in parent or any other ancestor component.
+	
+	We can define provide in 2 ways 
+		provide: {}
+		   OR
+		provide() { return {}}
 		
 		
+	We can pass methods as well in the provide section, that will get executed in the component where it get injected
+	
+	In parent:
+		provide() {
+		    return {
+		      selectTopic: this.activateTopic
+		    }
+		  },
+		  methods: {
+		    activateTopic(topicId) {
+		      this.activeTopic = this.topics.find((topic) => topic.id === topicId);
+		    },
+		  },
+		  
+	In child:
+		inject: ['selectTopic'],
+		
+		
+		<template>
+		  <li>
+		    <h3>{{ topicName }}</h3>
+		    <p>{{ description }}</p>
+		    <button @click="selectTopic(id)">Learn More</button>
+		  </li>
+		</template>
+		
+#### Global - local component registration
+	Global component registration happens in main.js, the registered components are available in the whole application
+	
+		const app = createApp(App);
+		app.component('base-badge', BaseBadge);
+		app.mount('#app');	
+		
+	Local component registration happens in the script tag of a component, registered component is available only in that component
+	
+		<script>
+			import TheHeader from "./components/TheHeader.vue";
+			import BadgeList from "./components/BadgeList.vue";
+			import UserInfo from "./components/UserInfo.vue";
+
+			export default {
+			  components: {
+			    TheHeader,
+			    BadgeList,
+			    UserInfo
+			  },
+			  data() {}
+			}
+		</script>
+		
+#### Scoping styles
+	Style defined in <sytle></style> in any component by default is global. So limit their scope to the same component,
+	we need to add scoped on the tag like:
+		<style scoped> </style>		
+	
+	
+#### Slots
+	Slots allow us to receive the HTML content from outside of the component. It is like props just the props are meant for 
+	the data where as slots are meant for the HTML data.	
+	
+	Sending HTML code from any component to BaseCard component:
+	
+		<template>
+		  <section>
+		    <base-card>
+		      <h3>{{ fullName }}</h3>
+		      <base-badge :type="role" :caption="role.toUpperCase()"></base-badge>
+		      <p>{{ infoText }}</p>
+		    </base-card>
+		  </section>
+		</template>
+	
+	In BaseCard Component
+		<template>
+		  <div>
+		      <slot></slot>
+		  </div>
+		</template>
 	
 	
 	
