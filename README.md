@@ -311,10 +311,104 @@ Basic projects to learn Vue.js
 		      <slot></slot>
 		  </div>
 		</template>
+		
+#### Multiple slots
+
+We can have more than 1 slots in an component, in that case we can use Named slots where we add a name attribute to all the slots and
+can leave one as the default slot.
+
+	<template>
+	  <section>
+	    <base-card>
+	      <template v-slot:header>
+		<h2>Available Badges</h2>
+	      </template>
+	      <template v-slot:default> 
+		<ul>
+		  <li>
+		    <base-badge type="admin" caption="ADMIN"></base-badge>
+		  </li>
+		  <li>
+		    <base-badge type="author" caption="AUTHOR"></base-badge>
+		  </li>
+		</ul>
+	      </template>
+	    </base-card>
+	  </section>
+	</template>
 	
 	
+In BaseCard Component
+	<template>
+	  <div>
+	      <header>
+		  <slot name="header"></slot>
+	      </header>
+	      <slot></slot>
+	  </div>
+	</template>
 	
+We can use # in place of v-slot:
+	<template #header>
+		<h2>Available Badges</h2>
+	</template>
 	
+#### Default value for slots
+
+We can set the default value of slots by adding the value between the slots tags
+	
+	<slot>
+		<h2>Default value</h2>
+	</slot>
+	
+#### Accessing Slot values
+We can access the slots data using $slots
+
+	this.$slots.<name of slot>	
+	
+#### Scoped slots
+It is used to pass the data from the component where you define the slot to the component where you pass the markup data to the slot component.	
+
+From Slot component (CourseGoals component)
+
+	<template>
+	    <ul>
+		<li v-for="goal in goals" :key="goal">
+		    <slot :item="goal"></slot>
+		</li>
+	    </ul>
+	</template>
+	
+From calling component (App component)
+
+	<template>
+	  <div>
+	    <course-goals>
+	      <template #default="slotProps">
+		<h2>{{slotProps.item}}</h2>
+	      </template>
+	    </course-goals>
+	  </div>
+	</template>	
+	
+#### Dynamic component
+Adding a component in template based on a condition. We can assign the component tag to a variable (on a condition) and can use that 
+variable to add it in template
+	<template>
+	  <div>
+	    <the-header></the-header>
+	    <button @click="setSelectedComponent('active-goals')">Active Goals</button>
+	    <button @click="setSelectedComponent('manage-goals')">Manage Goals</button>
+	    <component :is="selectedComponent"></component>
+	  </div>
+	</template>
+	
+Here selectedComponent contains one of 2 values : 'active-goals' or 'manage-goals'
+
+We can use it with <keep-alive> tag to keep the state of the component alive on changing the component
+	<keep-alive>
+		<component :is="selectedComponent"></component>
+	</keep-alive>		
 	
 	
 	
