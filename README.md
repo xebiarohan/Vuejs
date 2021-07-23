@@ -294,7 +294,7 @@ Slots allow us to receive the HTML content from outside of the component. It is 
 the data where as slots are meant for the HTML data.	
 
 Sending HTML code from any component to BaseCard component:
-	
+```js	
 	<template>
 	  <section>
 	    <base-card>
@@ -304,13 +304,16 @@ Sending HTML code from any component to BaseCard component:
 	    </base-card>
 	  </section>
 	</template>
+```	
 	
 In BaseCard Component
+```js
 	<template>
 	  <div>
 	      <slot></slot>
 	  </div>
 	</template>
+```	
 		
 #### Multiple slots
 
@@ -342,6 +345,7 @@ can leave one as the default slot.
 	
 	
 In BaseCard Component
+```js
 	<template>
 	  <div>
 	      <header>
@@ -350,30 +354,35 @@ In BaseCard Component
 	      <slot></slot>
 	  </div>
 	</template>
+```	
 	
 We can use # in place of v-slot:
+```js
 	<template #header>
 		<h2>Available Badges</h2>
 	</template>
+```	
 	
 #### Default value for slots
 
 We can set the default value of slots by adding the value between the slots tags
-	
+```js	
 	<slot>
 		<h2>Default value</h2>
 	</slot>
+```	
 	
 #### Accessing Slot values
 We can access the slots data using $slots
-
+```js
 	this.$slots.<name of slot>	
+```	
 	
 #### Scoped slots
 It is used to pass the data from the component where you define the slot to the component where you pass the markup data to the slot component.	
 
 From Slot component (CourseGoals component)
-
+```js
 	<template>
 	    <ul>
 		<li v-for="goal in goals" :key="goal">
@@ -381,8 +390,10 @@ From Slot component (CourseGoals component)
 		</li>
 	    </ul>
 	</template>
+```	
 	
 From calling component (App component)
+```js
 
 	<template>
 	  <div>
@@ -393,10 +404,12 @@ From calling component (App component)
 	    </course-goals>
 	  </div>
 	</template>	
+```
 	
 #### Dynamic component
 Adding a component in template based on a condition. We can assign the component tag to a variable (on a condition) and can use that 
 variable to add it in template
+```js
 	<template>
 	  <div>
 	    <the-header></the-header>
@@ -405,13 +418,17 @@ variable to add it in template
 	    <component :is="selectedComponent"></component>
 	  </div>
 	</template>
+```
 	
 Here selectedComponent contains one of 2 values : 'active-goals' or 'manage-goals'
 
 We can use it with <keep-alive> tag to keep the state of the component alive on changing the component
+
+```js
 	<keep-alive>
 		<component :is="selectedComponent"></component>
 	</keep-alive>		
+```	
 	
 	
 	
