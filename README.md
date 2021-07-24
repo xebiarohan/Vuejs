@@ -107,30 +107,30 @@ Basic projects to learn Vue.js
 	unmounted()			After unmounting (for clean up code)
 	
 #### Components
-	Used to add the reuseability in a Vue application.Vue component is just an another Vue app that is connected to main App.
-	syntax
+Used to add the reuseability in a Vue application.Vue component is just an another Vue app that is connected to main App.
+syntax
 		app.component('<custom-tags>',{data(): {}, methods: {} .... })
-	custom tags like friend-contant
+custom tags like friend-contant
 	
 #### Vue CLI
-	Allow us to create and manage bigger Vue applications	
-	Installation : 	npm install -g @vue/cli
-	creating new project : vue create <project-name>
-	running project:  cd <project-name>  then,    npm run serve
+Allow us to create and manage bigger Vue applications	
+Installation : 	npm install -g @vue/cli
+creating new project : vue create <project-name>
+running project:  cd <project-name>  then,    npm run serve
 	
 #### Main.js
 	Vue application starts from main.js and it loads a section (#app) present in index.html
 	
 #### Running .vue class
-	Vue application builds the code present in .vue (Single file components)  files to run it on the browsers.
+Vue application builds the code present in .vue (Single file components)  files to run it on the browsers.
 	
 #### Parent child component communication (props)
-	Props are used to create a communication between parent component and child component.
+Props are used to create a communication between parent component and child component.
 	
-	In parent component props are passed like:
+In parent component props are passed like:
 		 <friend-contact name="Manuel Lorenz" phone-number="0123 45678 90" email-address="manuel@localhost.com"></friend-contact>
 		 
-	In child component props are defined in script like
+In child component props are defined in script like
 	
 		export default {
 			  props: [
@@ -142,12 +142,12 @@ Basic projects to learn Vue.js
 		
 		}	
 		
-	These props can be used in the template directly and in methods using 'this' keyword.
+These props can be used in the template directly and in methods using 'this' keyword.
 
-	Props value cannot pe directly changed in the child component (immutable values) but we can assign the prop values to local variable and can change that.
+Props value cannot pe directly changed in the child component (immutable values) but we can assign the prop values to local variable and can change that.
 
 #### Validating props
-	Changing prop as an array to an object and then defining all the validations for each prop value.
+Changing prop as an array to an object and then defining all the validations for each prop value.
 	  props: {
 	    name: {
 	      type: String,
@@ -167,10 +167,10 @@ Basic projects to learn Vue.js
 	  
 #### Passing dara from Child component to Parent component using emit
 
-	We can create a custom event on some action using
+We can create a custom event on some action using
 		this.$emit('toggle-favorite', this.id);
 		
-	then in the parent component we can consume this event on the child element
+then in the parent component we can consume this event on the child element
 	
 	<friend-contact
         v-for="friend in friends"
@@ -187,7 +187,7 @@ Basic projects to learn Vue.js
       parameter as emitted by the child component.
       
 #### Validating emits of a component     
-	Just like props we can define the emits validation
+Just like props we can define the emits validation
 		  emits: {
 		    'toggle-favorite' : function(id) {
 		      if(id) {
@@ -199,7 +199,7 @@ Basic projects to learn Vue.js
 		    }
 		  }
 	
-	If we dont want to add any validation then we can use an array (recommended)
+If we dont want to add any validation then we can use an array (recommended)
 		emits: ['toggle-favorite']
 	
 #### Provide-inject
@@ -208,6 +208,7 @@ It is used when we want to pass the data to the grand child component, We can us
 So, We can use this approach where we can provide the data in the grand parent component and can inject in the grand child component.
 
 In grand parent component :
+```js
 	
 	provide: {
 	    topics: [
@@ -220,22 +221,28 @@ In grand parent component :
 		}
 	      ],
 	  }
+```
 
 In grand child component
+```js
 	
 	inject: ['topics']
+```
 	
 Inject only works when we provide data in parent or any other ancestor component.
 
 We can define provide in 2 ways 
+```js
 	provide: {}
 	   OR
 	provide() { return {}}
-		
+```		
 		
 We can pass methods as well in the provide section, that will get executed in the component where it get injected
 
 In parent:
+
+```js
 	provide() {
 	    return {
 	      selectTopic: this.activateTopic
@@ -246,11 +253,14 @@ In parent:
 	      this.activeTopic = this.topics.find((topic) => topic.id === topicId);
 	    },
 	  },
+```
 	  
 In child:
+```js
 	inject: ['selectTopic'],
+```
 	
-	
+```js	
 	<template>
 	  <li>
 	    <h3>{{ topicName }}</h3>
@@ -258,16 +268,19 @@ In child:
 	    <button @click="selectTopic(id)">Learn More</button>
 	  </li>
 	</template>
+```
 		
 #### Global - local component registration
 Global component registration happens in main.js, the registered components are available in the whole application
+```js
 	
 		const app = createApp(App);
 		app.component('base-badge', BaseBadge);
 		app.mount('#app');	
+```
 		
 Local component registration happens in the script tag of a component, registered component is available only in that component
-	
+```js
 	<script>
 		import TheHeader from "./components/TheHeader.vue";
 		import BadgeList from "./components/BadgeList.vue";
@@ -282,11 +295,14 @@ Local component registration happens in the script tag of a component, registere
 		  data() {}
 		}
 	</script>
+```
 		
 #### Scoping styles
 	Style defined in <sytle></style> in any component by default is global. So limit their scope to the same component,
 	we need to add scoped on the tag like:
-		<style scoped> </style>		
+```js	
+		<style scoped> </style>	
+```	
 	
 	
 #### Slots
@@ -307,6 +323,7 @@ Sending HTML code from any component to BaseCard component:
 ```	
 	
 In BaseCard Component
+
 ```js
 	<template>
 	  <div>
