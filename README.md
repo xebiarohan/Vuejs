@@ -1,8 +1,11 @@
 # Vuejs
 Basic projects to learn Vue.js
 
-#### const app = Vue.createApp({ components: {}, props: {}, emits: {}, template:``, data() {},computed: {},watch: {}, provide: {}, methods: {}, <Life cycle hooks> });
-	Basic class syntax
+#### Basic class syntax
+```js
+const app = Vue.createApp({ components: {}, props: {}, emits: {}, template:``, data() {},computed: {},watch: {}, provide: {}, methods: {}, <Life cycle hooks> });
+```
+	
 
 #### app.mount('#selectorName')
 	to mount a section of HTML with Vue code
