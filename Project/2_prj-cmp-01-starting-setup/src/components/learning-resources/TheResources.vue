@@ -43,7 +43,8 @@ export default {
   provide() {
     return {
       resources: this.storedResouces,
-      addResource: this.addResource
+      addResource: this.addResource,
+      deleteResource: this.deleteResource
     };
   },
   computed: {
@@ -59,7 +60,6 @@ export default {
       this.selectedtab = tab;
     },
     addResource(title, description, url) {
-      console.log('Here******************');
       const newResource = {
         id: new Date().toISOString(),
         title: title,
@@ -68,6 +68,10 @@ export default {
       };
       this.storedResouces.unshift(newResource);
       this.selectedtab = 'stored-resources';
+    },
+    deleteResource(resId) {
+      const resIndex = this.storedResouces.findIndex(res => res.id === resId);
+      this.storedResouces.splice(resIndex, 1);
     }
   }
 };

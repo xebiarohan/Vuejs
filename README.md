@@ -448,9 +448,40 @@ We can use it with <keep-alive> tag to keep the state of the component alive on 
 	<keep-alive>
 		<component :is="selectedComponent"></component>
 	</keep-alive>		
-```	
+```
 	
 	
+#### Sending HTTP request	
+
+we can send data using the browser method fetch() or using the external dependency like axios.
+
+Example of fetch()
+
+```js
+      fetch(
+        'https://vue-http-demo-3ece0-default-rtdb.firebaseio.com/survey.json',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name: this.enteredName, rating: this.chosenRating })
+        }
+      );
+```
+
+Axios
+
+```js
+import axios from 'axios'; // at the start of your <script> tag, before you "export default ..."
+
+
+axios.post('https://vue-http-demo-85e9e.firebaseio.com/surveys.json', {
+  name: this.enteredName,
+  rating: this.chosenRating,
+});
+
+```      
 	
 		
 	
