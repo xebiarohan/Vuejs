@@ -481,8 +481,88 @@ axios.post('https://vue-http-demo-85e9e.firebaseio.com/surveys.json', {
   rating: this.chosenRating,
 });
 
-```      
-	
+```
+
+#### Routing in Vue-js
+To install routing in Vuejs
+
+```js
+npm install --save vue-router@next
+```
+
+Setting up routing in main.js
+
+```js
+import { createApp } from 'vue';
+import {createRouter, createWebHistory} from 'vue-router';
+import TeamsList from './components/teams/TeamsList.vue';
+import UsersList from './components/users/UsersList.vue';
+
+import App from './App.vue';
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes: [
+        {path:'/teams', component: TeamsList},
+        {path: '/users', component: UsersList}
+    ]
+});
+
+const app = createApp(App)
+
+app.use(router);
+
+app.mount('#app');
+
+```
+
+history is used for back button functionality.
+
+Router-view is used to mark the area for rendering the different links
+
+```js
+<router-view></router-view>
+```
+
+Router-link is used to set a link in HTML
+
+```js
+<ul>
+ <li>
+   <router-link to="/teams">Teams</router-link>
+ </li>
+ <li>
+   <router-link to="/users">Users</router-link>
+ </li>
+</ul>
+```
+
+Navigation from program
+
+```js
+    confirmInput() {
+      this.$router.push('/teams');
+    }
+```
+
+$router contains many  methods like back(), forward() etc.
+
+
+Getting the query param
+
+```js
+{path: '/teams/:teamId', component: TeamMembers}
+
+
+In Team members component
+
+created() {
+const teamId = this.$route.params.teamId;
+}
+
+```
+
+
 		
 	
 	
